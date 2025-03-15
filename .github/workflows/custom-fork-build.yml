@@ -16,13 +16,11 @@ jobs:
           java-version: 17
           distribution: temurin
 
-      - name: Build with Gradle
-        uses: gradle/gradle-build-action@v3
-        with:
-          arguments: build shadowJar
+      - name: Build
+        run: mvn package --file pom.xml
 
       - name: Get build artifact ready
-        run: mkdir staging && cp build/libs/*.jar staging
+        run: mkdir staging && cp target/*.jar staging
 
       - name: Upload a Build Artifact
         uses: actions/upload-artifact@v4
